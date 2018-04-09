@@ -28,6 +28,9 @@ hugcount = len(huglist) - 1 # -1 to compensate for array lengths.
 ramsayfile = open("ramsay.list")
 ramsaylist = ramsayfile.read().splitlines()
 ramsayCount = len(ramsaylist) - 1
+insultfile = open("InsultGenerator")
+insultlist = insultfile.read().splitlines()
+insultCount = len(ramsaylist) - 1
 
 #Prefix file accessing
 
@@ -144,7 +147,9 @@ async def on_message(message):
         
     if message.content.startswith(command("insult ", message)):
         #Says a random insult using an insult generator
-        msg = InsultGenerator[randint(0, 
+        msg = "{0.author.mention} calls {0.mentions[0].mention} a " + InsultGenerator[randint(0, insultCount)]
+        await client.send_message(message.channel, msg)
+        await client.delete_message(message)
     
     if message.content.startswith(command("gay", message)):
         #no u
